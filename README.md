@@ -1,8 +1,9 @@
 ## Olá! Eu sou o Higor Rodrigues!
 
-- Hoje trabalho com desenvolvimento em VBA e SQL
-- Estudando JavaScript / TypeScript / Node.js
+- Hoje trabalho com desenvolvimento em Python (framework Django), JavaScript, TypeScritpt, VBA e SQL
+- Estudando na Full Cycle (curso Full Cycle 3.0)
 - Formado em Ciência da Computação e com curso de extensão em Ciência de Dados
+- Certificado pela EBAC como Desenvolvedor Full Stack Python
 
 <div>
   <a href="https://beacons.ai/higorrsc">
