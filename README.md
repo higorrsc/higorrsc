@@ -91,75 +91,83 @@ The project separates business rules from infrastructure and API concerns, allow
 
 ---
 
-# 2. Personnel Competency Analysis
+## 2. Personnel Competency Analysis
 
-**Django · Clean Architecture · Domain Modeling · Complex Relationships**
+**Django · Clean Architecture · Domain-Driven Design · CQRS · Complex Relationships**
 
-A personnel competency management system designed to model relationships between:
+[![Repository](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/higorrsc/competency-analytics)
+
+A personnel competency analytics and career progression system designed to model complex domain relationships and lifecycle rules between:
 
 ```text
 Collaborator
-     │
-     ▼
-Evaluations
-     │
-     ▼
-Competencies
-     │
-     ▼
-Competency Paths
+      │
+      ├──► Path Enrollments (Single Active Path Invariant)
+      │         │
+      │         ▼
+      │    Competency Paths & Levels (Core / Complementary Weights)
+      │
+      └──► Periodic Evaluations (Draft → Submitted → Accepted / Contested)
+                │
+                ▼
+          Competency Measurements (Proficiency Scale 1–5)
 ```
 
-The project uses Django where its framework capabilities provide value, particularly:
+The project leverages Django where its framework capabilities provide high value as an outer adapter:
 
-- Django Admin
-- Django ORM
-- Authentication
-- Database relationships
-- Administrative interfaces
+- **Django Admin** (customized administrative interfaces, inlines, and domain-driven actions)
+- **Django REST Framework** (RESTful API controllers, serializers, and OpenAPI/Swagger documentation)
+- **Django ORM & Migrations** (relational persistence, constraints, and transaction boundaries)
 
-At the same time, the business rules are kept independent from Django wherever practical.
+At the same time, **the core domain and business rules remain 100% independent from Django**.
 
-For example, the calculation of **competency gaps** is implemented as a pure application/domain use case instead of being coupled to Django Views or Models.
+For example:
+
+- **Competency Gap Analysis & Promotion Eligibility** are implemented through pure, framework-free Domain Services (`GapAnalysisService`) and Use Cases rather than being coupled to
+Django Views, Serializers, or ORM Models.
+- **Temporal Competency History & Path Progression** follow **CQRS**, using dedicated Read Model Ports (`Protocol`) backed by optimized SQL Database Views (`LAG()` window functions
+and aggregations).
 
 ### Main concepts
 
-- Django
-- Django REST Framework
-- Clean Architecture
-- Domain-Driven Design
-- Use Cases
-- SOLID
-- Complex relational modeling
-- SQL Server
-- Automated testing
+- Python 3.15 & `uv`
+- Clean Architecture & Domain-Driven Design (DDD)
+- SOLID & Explicit Composition Root (DI Container)
+- CQRS (Segregated Command & Query Use Cases + Read Model Ports)
+- Pydantic v2 (Strict Input/Request & Output/Response DTOs)
+- Django 6 & Django REST Framework (DRF)
 - Django Admin
+- PostgreSQL & Optimized SQL Views (Window Functions)
+- Automated testing (`Pytest` — 664 unit, integration, API, and E2E tests with 98% coverage)
+- Static analysis & CI Quality Gate (`Ruff`, `Pyrefly`, GitHub Actions)
 
 ### Architectural principle
 
 ```text
-┌───────────────────────────────────────────┐
-│                Framework                  │
-│                                           │
-│     Django / DRF / Admin / ORM            │
-└─────────────────────┬─────────────────────┘
-                      │
-                      ▼
-┌───────────────────────────────────────────┐
-│              Application                  │
-│                                           │
-│              Use Cases                    │
-└─────────────────────┬─────────────────────┘
-                      │
-                      ▼
-┌───────────────────────────────────────────┐
-│                 Domain                   │
-│                                           │
-│  Competencies · Evaluations · Gap Rules   │
-└───────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────┐
+│                Presentation & Infrastructure              │
+│                                                           │
+│   DRF API · Django Admin · Django ORM · SQL Views (PG)    │
+└─────────────────────────────┬─────────────────────────────┘
+                              │
+                              ▼
+┌───────────────────────────────────────────────────────────┐
+│                        Application                        │
+│                                                           │
+│    Command & Query Use Cases · Pydantic DTOs · Ports      │
+└─────────────────────────────┬─────────────────────────────┘
+                              │
+                              ▼
+┌───────────────────────────────────────────────────────────┐
+│                    Domain (Pure Python)                   │
+│                                                           │
+│   Aggregates · Value Objects · Invariants · Gap Service   │
+└───────────────────────────────────────────────────────────┘
 ```
 
-The objective is to demonstrate that using a framework does not require putting business rules inside the framework itself.
+The objective is to demonstrate that adopting a full-featured framework like Django does not require coupling business rules to the framework itself.
+
+👉 **[View repository](https://github.com/higorrsc/competency-analytics)**
 
 ---
 
