@@ -1,194 +1,170 @@
 # Hi, I'm Higor Rodrigues 👋
 
-**Software Engineer | Python | Backend | Software Architecture | AI**
+**Software Engineer | Backend Engineering | Python | AI Engineering | Software Architecture**
 
-I build backend systems focused on **business domains, software architecture, data processing, distributed systems, and artificial intelligence**.
+I design and build backend systems that combine **domain-driven software architecture, data engineering, distributed systems, and artificial intelligence**.
 
-My portfolio is centered around four original projects designed to explore different software engineering challenges — from statistical anomaly detection and complex domain modeling to AI-assisted development and financial data processing.
+My focus is building reliable business applications, integrating AI capabilities into conventional software systems, and exploring how AI-assisted engineering can improve the software development lifecycle.
+
+My portfolio showcases practical implementations of these concepts through original projects, emphasizing architectural design, explicit business rules, automated testing, and technical documentation.
 
 ---
 
-## 🚀 Portfolio
+# 🚀 Portfolio
 
-My main portfolio consists of four original projects.
+My portfolio consists of original projects designed to explore different software engineering challenges, from statistical analysis and complex domain modeling to AI-powered applications and financial systems.
 
-Each project is developed with a focus on:
+The projects emphasize:
 
-- Domain modeling
-- Clean Architecture
-- SOLID
+- Domain-Driven Design (DDD)
+- Clean Architecture and SOLID
+- Explicit business rules and domain invariants
+- API and database design
 - Automated testing
-- API design
-- Database modeling
-- Docker
-- Technical documentation
-- Architecture diagrams
-- Explicit technical decisions
+- Infrastructure and containerization
+- Technical documentation and architecture decisions
 
-The goal is not simply to build applications, but to demonstrate **how software is designed, modeled, implemented, tested, and documented**.
-
----
+The objective is not simply to build applications, but to demonstrate how software is designed, modeled, implemented, tested, and documented.
 
 ## 1. Supply Chain Anomaly Management
 
-**Statistical analysis · Domain Services · REST API · Operational Analytics**
+**Statistical Analysis · Domain Services · REST API · Operational Analytics**
 
-[![Repository](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/higorrsc/supply-chain-anomaly-management)
+An API focused on processing inventory movements and identifying abnormal stock behavior.
 
-An API focused on processing **inventory movements** and identifying abnormal stock behavior.
+The system analyzes historical patterns and applies statistical concepts such as standard deviation to identify anomalies and generate alerts for unexpected movements.
 
-The system analyzes historical patterns and uses statistical concepts such as **standard deviation** to identify anomalies, generating alerts for unexpected movements.
+A Streamlit application consumes the API and provides an operational dashboard for visualizing detected anomalies.
 
-A Streamlit application consumes the API and provides an operational dashboard for visualizing the detected anomalies.
+**Key concepts and technologies:**
 
-### Main concepts
-
-- Domain-Driven Design
-- Domain Services
+- Domain-Driven Design and Domain Services
 - Statistical anomaly detection
 - Historical data analysis
-- REST API
-- Pydantic
-- Automated testing
+- REST API and Pydantic
 - PostgreSQL
-- Docker
-- Streamlit
+- Automated testing
+- Docker and Streamlit
 
-### Architecture
-
-The project separates business rules from infrastructure and API concerns, allowing the anomaly detection logic to be tested independently.
+**Architecture**
 
 ```text
-                    ┌──────────────────┐
-                    │    Streamlit     │
-                    │    Dashboard     │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │     REST API     │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │    Use Cases     │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │  Domain Services │
-                    │                  │
-                    │ Anomaly Analysis │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │    PostgreSQL    │
-                    └──────────────────┘
+       Streamlit Dashboard
+               │
+               ▼
+           REST API
+               │
+               ▼
+           Use Cases
+               │
+               ▼
+        Domain Services
+               │
+        Anomaly Analysis
+               │
+               ▼
+           PostgreSQL
 ```
 
-👉 **[View repository](https://github.com/higorrsc/supply-chain-anomaly-management)**
+The architecture separates business rules from infrastructure and API concerns, allowing anomaly detection logic to be tested independently.
+
+👉 [View repository](https://github.com/higorrsc/supply-chain-anomaly-management)
 
 ---
 
 ## 2. Personnel Competency Analysis
 
-**Django · Clean Architecture · Domain-Driven Design · CQRS · Complex Relationships**
+**Python · Django · Clean Architecture · DDD · CQRS**
 
-[![Repository](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/higorrsc/competency-analytics)
+A personnel competency analytics and career progression system designed to model complex domain relationships, lifecycle rules, and competency evaluation processes.
 
-A personnel competency analytics and career progression system designed to model complex domain relationships and lifecycle rules between:
+The domain models relationships between:
 
-```text
-Collaborator
-      │
-      ├──► Path Enrollments (Single Active Path Invariant)
-      │         │
-      │         ▼
-      │    Competency Paths & Levels (Core / Complementary Weights)
-      │
-      └──► Periodic Evaluations (Draft → Submitted → Accepted / Contested)
-                │
-                ▼
-          Competency Measurements (Proficiency Scale 1–5)
-```
+- Collaborators and competency paths.
+- Path enrollments with single-active-path invariants.
+- Competency paths, levels, and weighted requirements.
+- Periodic evaluations with explicit lifecycle transitions.
+- Competency measurements using a proficiency scale.
 
-The project leverages Django where its framework capabilities provide high value as an outer adapter:
+Django is used as an outer framework adapter, providing administrative interfaces, API endpoints, and relational persistence.
 
-- **Django Admin** (customized administrative interfaces, inlines, and domain-driven actions)
-- **Django REST Framework** (RESTful API controllers, serializers, and OpenAPI/Swagger documentation)
-- **Django ORM & Migrations** (relational persistence, constraints, and transaction boundaries)
+The core domain and business rules remain independent of Django.
 
-At the same time, **the core domain and business rules remain 100% independent from Django**.
+**Architectural highlights:**
 
-For example:
+- Framework-independent domain logic.
+- Explicit Command and Query Use Cases.
+- CQRS with dedicated Read Model Ports.
+- Domain Services for competency gap analysis and promotion eligibility.
+- SQL Views using window functions and aggregations for temporal analysis.
+- Explicit dependency injection and composition root.
+- Database constraints and transaction boundaries.
 
-- **Competency Gap Analysis & Promotion Eligibility** are implemented through pure, framework-free Domain Services (`GapAnalysisService`) and Use Cases rather than being coupled to
-Django Views, Serializers, or ORM Models.
-- **Temporal Competency History & Path Progression** follow **CQRS**, using dedicated Read Model Ports (`Protocol`) backed by optimized SQL Database Views (`LAG()` window functions
-and aggregations).
+**Technology stack:**
 
-### Main concepts
+- Python 3.15 and `uv`
+- Django 6 and Django REST Framework
+- Pydantic v2
+- PostgreSQL
+- Pytest
+- Ruff and Pyrefly
+- GitHub Actions
 
-- Python 3.15 & `uv`
-- Clean Architecture & Domain-Driven Design (DDD)
-- SOLID & Explicit Composition Root (DI Container)
-- CQRS (Segregated Command & Query Use Cases + Read Model Ports)
-- Pydantic v2 (Strict Input/Request & Output/Response DTOs)
-- Django 6 & Django REST Framework (DRF)
-- Django Admin
-- PostgreSQL & Optimized SQL Views (Window Functions)
-- Automated testing (`Pytest` — 664 unit, integration, API, and E2E tests with 98% coverage)
-- Static analysis & CI Quality Gate (`Ruff`, `Pyrefly`, GitHub Actions)
+**Testing and quality:**
 
-### Architectural principle
+- 664 automated tests covering unit, integration, API, and E2E scenarios.
+- 98% test coverage.
+- Static analysis and CI quality gates.
+
+**Architectural overview**
 
 ```text
-┌───────────────────────────────────────────────────────────┐
-│                Presentation & Infrastructure              │
-│                                                           │
-│   DRF API · Django Admin · Django ORM · SQL Views (PG)    │
-└─────────────────────────────┬─────────────────────────────┘
-                              │
-                              ▼
-┌───────────────────────────────────────────────────────────┐
-│                        Application                        │
-│                                                           │
-│    Command & Query Use Cases · Pydantic DTOs · Ports      │
-└─────────────────────────────┬─────────────────────────────┘
-                              │
-                              ▼
-┌───────────────────────────────────────────────────────────┐
-│                    Domain (Pure Python)                   │
-│                                                           │
-│   Aggregates · Value Objects · Invariants · Gap Service   │
-└───────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────┐
+│          Presentation & Infrastructure      │
+│                                             │
+│   DRF API · Django Admin · Django ORM       │
+│             PostgreSQL / SQL Views          │
+└──────────────────────┬──────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────┐
+│                 Application                 │
+│                                             │
+│       Command & Query Use Cases             │
+│          Pydantic DTOs · Ports              │
+└──────────────────────┬──────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────┐
+│             Domain (Pure Python)            │
+│                                             │
+│     Aggregates · Value Objects              │
+│     Invariants · Domain Services            │
+└─────────────────────────────────────────────┘
 ```
 
-The objective is to demonstrate that adopting a full-featured framework like Django does not require coupling business rules to the framework itself.
+The main architectural objective is to demonstrate that adopting a full-featured framework like Django does not require coupling business rules to the framework itself.
 
-👉 **[View repository](https://github.com/higorrsc/competency-analytics)**
+👉 [View repository](https://github.com/higorrsc/competency-analytics)
 
 ---
 
 ## 3. Strategic Indicators — SDD & AI
 
-**Spec-Driven Development · AI Agents · Domain-Driven Design · Clean Architecture · BDD**
+**Spec-Driven Development · AI Agents · DDD · Clean Architecture · BDD**
 
-An enterprise-oriented financial intelligence platform built with **Python and AI-assisted software engineering**, designed to transform corporate budget and cost allocation data into actionable strategic insights.
+An enterprise-oriented financial intelligence platform built with Python and AI-assisted software engineering, designed to transform corporate budget and cost allocation data into actionable strategic insights.
 
-The application combines deterministic financial calculations, anomaly detection, scenario simulations, and multi-provider AI agents to generate **executive-level insights, recommendations, and strategic indicators**.
+The application combines deterministic financial calculations, anomaly detection, scenario simulations, and multi-provider AI agents to generate executive-level insights, recommendations, and strategic indicators.
 
-Beyond the application itself, this project explores how **Spec-Driven Development (SDD)** and AI-assisted engineering can be applied to build maintainable, testable, and domain-driven software.
-
-### Core Capabilities
+### Core capabilities
 
 - **Financial Governance:** Hierarchical cost center management and budget consolidation.
 - **Cost Allocation:** Exact-penny financial allocation using the Largest Remainder Method.
 - **Budget Intelligence:** Planned vs. Actual analysis, execution rates, and threshold-based alerts.
 - **What-If Simulations:** Scenario analysis for supplier inflation and allocation changes.
 - **Anomaly Detection:** Identification of unusual allocation patterns and potential budget dumping.
-- **AI-Powered Insights:** Executive summaries and actionable recommendations using Pydantic AI, supporting Ollama, Google Gemini, and OpenAI.
+- **AI-Powered Insights:** Executive summaries and actionable recommendations using Pydantic AI, with support for Ollama, Google Gemini, and OpenAI.
 - **Executive Reporting:** Structured PDF reports generated from financial intelligence.
 
 ### Specification-Driven Development
@@ -197,59 +173,53 @@ The development process follows a specification-first approach using **OpenSpec*
 
 Business capabilities, domain rules, and acceptance criteria are defined before implementation. Specifications serve as the reference for both development and validation.
 
-The project maintains:
+The workflow establishes traceability between:
 
+- Business requirements and domain rules.
 - Living capability specifications.
 - Change proposals and implementation artifacts.
-- Explicit business rules and domain invariants.
 - API contracts and Pydantic schemas.
-- Executable acceptance criteria.
-- Traceability between specifications, implementation, and tests.
+- Acceptance criteria and automated tests.
 
-The development workflow:
+**Development workflow**
 
 ```text
-             Business Requirements
-                      │
-                      ▼
-              OpenSpec Proposals
-                      │
-                      ▼
-             Living Specifications
-                      │
-                      ▼
-               AI-Assisted
-               Implementation
-                      │
-                      ▼
-          ┌───────────────────────┐
-          │   Clean Architecture │
-          │                       │
-          │   Domain              │
-          │   Application         │
-          │   Infrastructure      │
-          │   Presentation        │
-          └───────────┬───────────┘
-                      │
-                      ▼
-              Automated Tests
-                      │
-          ┌───────────┴───────────┐
-          │                       │
-        PASS                     FAIL
-          │                       │
-          ▼                       ▼
-       Validate              Failure Analysis
-          │                       │
-          ▼                       ▼
-      Deliver              Refinement Cycle
-                                  │
-                                  └──────► Tests
+       Business Requirements
+                │
+                ▼
+         OpenSpec Proposals
+                │
+                ▼
+       Living Specifications
+                │
+                ▼
+       AI-Assisted Engineering
+                │
+                ▼
+       Clean Architecture
+                │
+                ▼
+        Implementation
+                │
+                ▼
+        Automated Tests
+                │
+         ┌──────┴──────┐
+         │             │
+        PASS          FAIL
+         │             │
+         ▼             ▼
+      Validate     Failure Analysis
+         │             │
+         ▼             ▼
+       Deliver     Refinement Cycle
+                       │
+                       └──► Tests
 ```
 
-### Architecture & Engineering Principles
+### Architecture and engineering
 
-The application is structured around **Domain-Driven Design (DDD)** and **Clean Architecture**, with independently organized bounded contexts:
+The application is organized around Domain-Driven Design and Clean Architecture, with independently organized bounded contexts:
 
 - `budgeting` — Cost centers and budget targets.
 - `allocation` — Suppliers, contracts, measurements, and cost allocation.
@@ -257,7 +227,7 @@ The application is structured around **Domain-Driven Design (DDD)** and **Clean 
 - `intelligence` — Anomaly detection and AI-powered insights.
 - `shared` — Cross-cutting domain and infrastructure components.
 
-Engineering principles and practices include:
+Engineering principles include:
 
 - SOLID and Dependency Inversion.
 - Framework-independent domain logic.
@@ -273,145 +243,59 @@ AI coding agents are integrated into a development workflow guided by formal spe
 
 The objective is to use AI as an engineering accelerator while preserving architectural consistency, explicit business rules, and implementation quality.
 
-The workflow emphasizes:
+### Testing and validation
 
-- Specification-driven implementation.
-- Respect for architectural boundaries and defined interfaces.
-- Test-driven validation of generated code.
-- Incremental implementation through well-defined changes.
-- Continuous feedback between specifications, code, and tests.
-
-### Testing & Continuous Validation
-
-Automated testing is a fundamental part of the development process.
-
-The project combines:
-
-- **Unit Tests:** Domain rules, calculations, entities, and use cases.
-- **Integration Tests:** Asynchronous persistence and repository implementations.
-- **API Tests:** HTTP contracts and endpoint behavior.
-- **BDD:** Executable Gherkin scenarios using `pytest-bdd`.
-- **Static Analysis:** Ruff and Pyrefly.
-- **Specification Validation:** OpenSpec validation.
+- Unit tests for domain rules, calculations, entities, and use cases.
+- Integration tests for asynchronous persistence and repositories.
+- API tests for HTTP contracts and endpoint behavior.
+- BDD with executable Gherkin scenarios using `pytest-bdd`.
+- Static analysis with Ruff and Pyrefly.
+- Specification validation with OpenSpec.
 
 External AI dependencies can be replaced with deterministic test doubles, allowing business behavior to be validated without relying on external LLM services.
 
-### Technology Stack
+**Technology stack:**
 
 `Python` · `FastAPI` · `Pydantic` · `Pydantic AI` · `SQLAlchemy` · `PostgreSQL` · `Alembic` · `OpenAPI` · `OpenSpec` · `pytest` · `pytest-bdd` · `Docker` · `uv`
 
-### The Engineering Experiment
+The central engineering experiment is exploring how formal specifications, domain-driven design, automated testing, and AI-assisted development can work together to build reliable software.
 
-The central idea is to explore how formal specifications, domain-driven design, automated testing, and AI-assisted development can work together to build reliable software.
-
-**Business Requirements → Specifications → AI-Assisted Engineering → Implementation → Automated Validation → Continuous Refinement**
-
-
-👉 **[View repository](https://github.com/higorrsc/strategic-indicators-ai)**
+👉 [View repository](https://github.com/higorrsc/strategic-indicators-ai)
 
 ---
 
-# 4. Contract Measurement & Cost Allocation
+## 4. Contract Measurement & Cost Allocation
 
-**Financial Modeling · Data Architecture · Cost Allocation · Enterprise Systems**
+<sub>PLANNED PROJECT · DEVELOPMENT QUEUE</sub>
 
-A system focused on **contract measurement and financial cost allocation between hierarchical Cost Centers**.
+**Financial Modeling · Domain Modeling · Data Architecture · Enterprise Systems**
 
-The project models the domain of contract measurements while addressing complex data-processing and financial allocation requirements.
+A planned project focused on contract measurement management and financial cost allocation across hierarchical organizational structures.
 
-A central problem is the distribution of financial values across hierarchical organizational structures.
+The proposed domain addresses challenges such as:
 
-```text
-                 Cost Center
-                     │
-          ┌──────────┴──────────┐
-          ▼                     ▼
-      Cost Center           Cost Center
-          │                     │
-      ┌───┴───┐                 ▼
-      ▼       ▼             Cost Center
-     ...     ...
-```
+- Contract and supplier management.
+- Measurement bulletin lifecycle and validation.
+- Hierarchical cost center structures.
+- Financial distribution across organizational units.
+- Business rules governing measurement and approval workflows.
+- Integration with corporate data sources.
 
-Depending on the volume and characteristics of the data, complex database processing can be used where appropriate.
+The project is intended to explore complex domain modeling and financial data processing, with particular attention to maintaining consistency between contract measurements, organizational structures, and financial allocations.
 
-Possible database components include:
+Its architectural and technology decisions will be defined as the project moves into specification and development.
 
-- Views
-- Stored Procedures
-- Complex SQL queries
-- CTEs
-- Hierarchical queries
-
-Python repositories abstract these database operations from the application layer.
-
-### Architecture
-
-```text
-┌─────────────────────┐
-│      Frontend       │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│        API          │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│      Use Cases      │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│      Domain         │
-│                     │
-│ Contract Measurement│
-│ Cost Allocation     │
-│ Business Rules      │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│    Repositories     │
-└──────────┬──────────┘
-           │
-           ▼
-┌─────────────────────┐
-│      Database       │
-│                     │
-│ SQL / Views / SPs   │
-└─────────────────────┘
-```
-
-The project can also include a Power BI layer for analytical consumption.
-
-```text
-Database
-    │
-    ▼
-Data Model
-    │
-    ▼
-Power BI
-    │
-    ├── DAX
-    ├── KPIs
-    ├── Dashboards
-    └── Interactive Analysis
-```
-
-The repository documentation includes screenshots and demonstrations of the dashboards and explains the modeling and allocation decisions.
+This project is currently in the development queue and is not yet implemented.
 
 ---
 
 # 🧠 Engineering Principles
 
-Across the four projects, I focus on a common set of engineering principles.
+Across my projects, I focus on a consistent set of engineering principles.
 
 ### Domain First
 
-Business rules should be explicit and understandable.
+Business rules should be explicit, understandable, and independent of technical implementation details.
 
 ### Separation of Concerns
 
@@ -429,28 +313,17 @@ Architectural decisions should be documented rather than hidden inside implement
 
 Documentation is part of the software, not an afterthought.
 
-Each portfolio project aims to provide:
-
-- Local setup instructions
-- Docker Compose configuration
-- Architecture diagrams
-- Context diagrams
-- API documentation
-- Test instructions
-- Technical decisions
-- Trade-offs
-- Examples
-- Screenshots where applicable
+My projects aim to provide setup instructions, architecture diagrams, API documentation, test instructions, technical decisions, trade-offs, and practical examples.
 
 ---
 
-# 🏛️ Architecture
+# 🏛️ Software Architecture
 
 I'm particularly interested in architectures that allow business rules to remain independent from frameworks and infrastructure.
 
-Some of the approaches I work with include:
+Architectural approaches and patterns I work with include:
 
-- Domain-Driven Design
+- Domain-Driven Design (DDD)
 - Clean Architecture
 - Hexagonal Architecture
 - SOLID
@@ -458,54 +331,44 @@ Some of the approaches I work with include:
 - Repository Pattern
 - Unit of Work
 - Value Objects
-- Entities
-- Aggregates
+- Entities and Aggregates
 - Domain Services
 - Use Cases
+- CQRS
 
 A recurring architectural model in my projects is:
 
 ```text
-                 ┌───────────────────┐
-                 │   Presentation    │
-                 │   API / Admin     │
-                 └─────────┬─────────┘
-                           │
-                           ▼
-                 ┌───────────────────┐
-                 │   Application     │
-                 │     Use Cases     │
-                 └─────────┬─────────┘
-                           │
-                           ▼
-                 ┌───────────────────┐
-                 │      Domain       │
-                 │                   │
-                 │ Business Rules    │
-                 │ Entities          │
-                 │ Value Objects     │
-                 │ Domain Services   │
-                 └─────────┬─────────┘
-                           │
-                           ▼
-                 ┌───────────────────┐
-                 │  Infrastructure  │
-                 │                   │
-                 │ Database          │
-                 │ External APIs     │
-                 │ Messaging         │
-                 └───────────────────┘
+       Presentation
+        API / Admin
+             │
+             ▼
+        Application
+          Use Cases
+             │
+             ▼
+           Domain
+       Business Rules
+       Entities
+       Value Objects
+       Domain Services
+             │
+             ▼
+       Infrastructure
+       Database
+       External APIs
+       Messaging
 ```
 
-The exact architecture varies according to the problem. Architecture is treated as a tool for managing complexity rather than a fixed template.
+Architecture is treated as a tool for managing complexity rather than a fixed template. Its implementation varies according to the problem and the needs of the domain.
 
 ---
 
-# 🐍 Backend
+# 🐍 Backend Engineering
 
 Python is my primary language for backend development.
 
-My main ecosystem includes:
+**Core ecosystem:**
 
 - Python
 - FastAPI
@@ -517,116 +380,114 @@ My main ecosystem includes:
 - Celery
 - `uv`
 
-I use Python for:
+**Application areas:**
 
-- REST APIs
-- Business applications
-- Data processing
-- ETL
-- Automation
-- Distributed systems
-- AI applications
-- RAG
-- Testing
+- REST APIs and business applications.
+- Data processing and ETL.
+- Automation.
+- Database integration.
+- Distributed systems.
+- AI-powered applications.
+- Testing and software quality.
 
 ---
 
-# 🤖 Artificial Intelligence
+# 🤖 Artificial Intelligence & AI Engineering
 
-I'm currently exploring practical applications of AI in software engineering and business systems.
+I'm focused on practical applications of artificial intelligence in software engineering and business systems.
 
-Areas of interest include:
+**Areas of interest and development:**
 
-- LLM applications
-- RAG
-- Embeddings
-- Semantic Search
-- Vector databases
-- `pgvector`
-- Prompt Engineering
-- AI agents
-- Spec-Driven Development
-- AI-assisted software development
+- LLM applications.
+- AI agents and agentic workflows.
+- Retrieval-Augmented Generation (RAG).
+- Embeddings and semantic search.
+- Vector databases and `pgvector`.
+- Prompt engineering.
+- Multi-provider LLM integration.
+- Spec-Driven Development.
+- AI-assisted software development.
 
-One of my main interests is combining AI with conventional software engineering:
+My main interest is combining AI capabilities with conventional software engineering:
 
 ```text
-AI
-+
-Domain Modeling
-+
-Software Architecture
-+
-APIs
-+
-Databases
-+
-Automated Tests
+          Artificial Intelligence
+                    +
+              Domain Modeling
+                    +
+           Software Architecture
+                    +
+               APIs & Data
+                    +
+            Automated Testing
 ```
+
+The goal is to build AI-enabled systems that remain maintainable, testable, observable, and aligned with business requirements.
 
 ---
 
-# 🗄️ Databases
+# 🗄️ Databases & Data Engineering
 
 I have experience working with relational databases and complex SQL-based systems.
 
-Technologies and concepts include:
+**Technologies and concepts:**
 
 - PostgreSQL
 - SQL Server
 - SQLite
 - SQL
-- CTEs
-- Views
+- Common Table Expressions (CTEs)
+- Database Views
 - Stored Procedures
-- Database modeling
-- Database migrations
+- Window Functions
+- Database modeling and migrations
 - Hierarchical data
 - Vector search
 
-I am particularly interested in understanding when database-side processing is appropriate and when business logic should remain in the application/domain layer.
+I'm particularly interested in understanding when database-side processing is appropriate and when business logic should remain in the application or domain layer.
 
 ---
 
 # 🐳 Infrastructure & DevOps
 
-I have hands-on experience with containerized and cloud-native environments.
+Infrastructure and automation are important parts of building and operating reliable software systems.
 
-Technologies and concepts include:
+**Tools and technologies:**
 
-- Docker
-- Docker Compose
-- Kubernetes
+- Docker and Docker Compose
+- AWS
 - Terraform
+- CI/CD and GitHub Actions
+- Kubernetes
 - Ansible
 - GitOps
-- CI/CD
 - API Gateways
-- RabbitMQ
-- Apache Kafka
+- RabbitMQ and Apache Kafka
 - gRPC
 - OpenTelemetry
 - Prometheus
 - Istio
 
+My technical interests include infrastructure as code, container orchestration, distributed communication, observability, and automated delivery pipelines.
+
 ---
 
-# 🧪 Testing & Quality
+# 🧪 Testing & Software Quality
 
 Testing is treated as part of the design process rather than only a final verification step.
 
-I work with:
+Practices and tools include:
 
-- Unit tests
-- Integration tests
-- API tests
-- Domain tests
-- Acceptance tests
-- BDD
-- Pytest
-- Contract testing
-- CI pipelines
-- Static analysis
+- Unit testing.
+- Integration testing.
+- API testing.
+- Domain testing.
+- Acceptance testing.
+- Behavior-Driven Development (BDD).
+- Contract testing.
+- Pytest.
+- Static analysis.
+- CI quality gates.
 
 For AI-assisted development, automated tests become particularly important because they provide an objective feedback mechanism for generated code.
 
@@ -636,65 +497,48 @@ For AI-assisted development, automated tests become particularly important becau
 
 ## MBA — Software Engineering with AI
 
-Currently pursuing an MBA focused on **Software Engineering and Artificial Intelligence**.
+Currently pursuing an MBA focused on Software Engineering and Artificial Intelligence.
 
-Current areas of study include:
+Areas of study include:
 
-- Artificial Intelligence
-- LLMs
-- RAG
-- Prompt Engineering
-- Software Architecture
-- System Design
-- AI-assisted development
-- Software Engineering
+- Artificial Intelligence and LLMs.
+- Retrieval-Augmented Generation (RAG).
+- Prompt Engineering.
+- Software Architecture.
+- System Design.
+- AI-assisted development.
+- Software Engineering.
 
 Repositories prefixed with `fc-mba-*` contain projects, challenges, and experiments related to this training.
 
----
-
 ## Full Cycle 3.0
 
-Completed the **Full Cycle 3.0 Developer Training**, with hands-on projects involving:
+Completed the Full Cycle 3.0 Developer Training, with practical projects and studies involving:
 
-- Domain-Driven Design
-- Clean Architecture
-- Hexagonal Architecture
-- Microservices
-- Event-Driven Architecture
-- GraphQL
-- gRPC
-- Apache Kafka
-- RabbitMQ
-- Kubernetes
-- Istio
-- API Gateway
-- Terraform
-- Ansible
-- GitOps
-- CI/CD
-- OpenTelemetry
-- Prometheus
+- Domain-Driven Design.
+- Clean and Hexagonal Architecture.
+- Microservices and Event-Driven Architecture.
+- GraphQL and gRPC.
+- Apache Kafka and RabbitMQ.
+- Kubernetes and Istio.
+- API Gateway.
+- Terraform and Ansible.
+- GitOps and CI/CD.
+- OpenTelemetry and Prometheus.
 
 Repositories prefixed with `fc-hrsc-*` document projects and exercises from this training.
 
----
-
 ## Full-stack Python Development
 
-Completed a **Full-stack Python Developer** training covering:
+Completed a Full-stack Python Developer training covering:
 
-- Python
-- Django
-- Django REST Framework
-- JavaScript
-- TypeScript
-- React
-- Vue
-- HTML
-- CSS
-- REST APIs
-- SQL
+- Python and Django.
+- Django REST Framework.
+- JavaScript and TypeScript.
+- React and Vue.
+- HTML and CSS.
+- REST APIs.
+- SQL.
 
 Repositories prefixed with `ebac-*` contain projects and exercises from this training.
 
@@ -710,61 +554,47 @@ The portfolio projects above are the primary representation of my current techni
 
 ---
 
-# 🛠️ Technology Stack
-
-<p align="left">
-
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="40" title="Python"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="40" title="Django"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" width="40" title="FastAPI"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" width="40" title="PostgreSQL"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" width="40" title="SQL Server"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="40" title="Docker"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" width="40" title="Kubernetes"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="40" title="Git"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="40" title="GitHub"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" width="40" title="Go"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="40" title="TypeScript"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="40" title="React"/>
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="40" title="Linux"/>
-
-</p>
-
----
-
 # 📈 Technical Direction
 
 My current technical direction can be summarized as:
 
 ```text
-Backend Engineering
-        │
-        ├── Software Architecture
-        │
-        ├── Domain Modeling
-        │
-        ├── Distributed Systems
-        │
-        ├── Data & Databases
-        │
-        └── Artificial Intelligence
-                  │
-                  ├── LLMs
-                  ├── RAG
-                  ├── Semantic Search
-                  └── AI-assisted Development
+             Backend Engineering
+                     │
+          ┌──────────┼──────────┐
+          │          │          │
+          ▼          ▼          ▼
+      Software    Domain      Data &
+     Architecture Modeling   Databases
+          │          │          │
+          └──────────┼──────────┘
+                     │
+                     ▼
+            Distributed Systems
+                     │
+                     ▼
+            Artificial Intelligence
+                     │
+               ┌─────┼─────┐
+               │     │     │
+               ▼     ▼     ▼
+              LLMs  RAG  AI Agents
+                     │
+                     ▼
+             AI-Assisted Engineering
 ```
 
-The four portfolio projects are designed to explore these areas through concrete software systems rather than isolated technology demonstrations.
+My goal is to continue developing software systems that combine strong engineering foundations with practical applications of artificial intelligence.
 
 ---
 
 # 📫 Contact
 
-If you're interested in software engineering, backend development, architecture, distributed systems, data, or AI applications, feel free to connect.
+I'm always interested in connecting with people working on software engineering, backend development, architecture, distributed systems, data, and AI applications.
 
-- GitHub: [@higorrsc](https://github.com/higorrsc)
+- **LinkedIn:** [Higor Rodrigues](https://www.linkedin.com/in/higorrsc/)
+- **GitHub:** [@higorrsc](https://github.com/higorrsc)
 
 ---
 
-> **Build software. Model the problem. Test the behavior. Document the decisions.**
+> Build software. Model the problem. Test the behavior. Document the decisions.
