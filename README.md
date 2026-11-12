@@ -171,108 +171,143 @@ The objective is to demonstrate that adopting a full-featured framework like Dja
 
 ---
 
-# 3. Strategic Indicators — SDD & AI
+## 3. Strategic Indicators — SDD & AI
 
-**Spec-Driven Development · AI Agents · OpenAPI · BDD · LLM**
+**Spec-Driven Development · AI Agents · Domain-Driven Design · Clean Architecture · BDD**
 
-A project focused on exploring **Spec-Driven Development combined with AI-assisted software engineering**.
+An enterprise-oriented financial intelligence platform built with **Python and AI-assisted software engineering**, designed to transform corporate budget and cost allocation data into actionable strategic insights.
 
-The application crosses process data with artificial intelligence to generate **executive-level insights and strategic indicators**.
+The application combines deterministic financial calculations, anomaly detection, scenario simulations, and multi-provider AI agents to generate **executive-level insights, recommendations, and strategic indicators**.
 
-The main experiment is not only the resulting application, but the development process itself.
+Beyond the application itself, this project explores how **Spec-Driven Development (SDD)** and AI-assisted engineering can be applied to build maintainable, testable, and domain-driven software.
 
-## Specification First
+### Core Capabilities
 
-The API is specified before implementation.
+- **Financial Governance:** Hierarchical cost center management and budget consolidation.
+- **Cost Allocation:** Exact-penny financial allocation using the Largest Remainder Method.
+- **Budget Intelligence:** Planned vs. Actual analysis, execution rates, and threshold-based alerts.
+- **What-If Simulations:** Scenario analysis for supplier inflation and allocation changes.
+- **Anomaly Detection:** Identification of unusual allocation patterns and potential budget dumping.
+- **AI-Powered Insights:** Executive summaries and actionable recommendations using Pydantic AI, supporting Ollama, Google Gemini, and OpenAI.
+- **Executive Reporting:** Structured PDF reports generated from financial intelligence.
 
-Possible approaches include:
+### Specification-Driven Development
 
-- OpenAPI / Swagger
-- BDD
-- `pytest-bdd`
-- `behave`
+The development process follows a specification-first approach using **OpenSpec**.
 
-The specification defines:
+Business capabilities, domain rules, and acceptance criteria are defined before implementation. Specifications serve as the reference for both development and validation.
 
-- Endpoints
-- HTTP methods
-- Request schemas
-- Response schemas
-- Pydantic models
-- Business rules
-- Acceptance criteria
+The project maintains:
+
+- Living capability specifications.
+- Change proposals and implementation artifacts.
+- Explicit business rules and domain invariants.
+- API contracts and Pydantic schemas.
+- Executable acceptance criteria.
+- Traceability between specifications, implementation, and tests.
+
+The development workflow:
 
 ```text
-             Specification
-                  │
-                  ▼
-          ┌───────────────┐
-          │    OpenAPI    │
-          │   / BDD Specs │
-          └───────┬───────┘
-                  │
-                  ▼
-            AI Development
-                  │
-                  ▼
-          ┌───────────────┐
-          │ Controllers   │
-          │ Use Cases     │
-          │ Repositories  │
-          └───────┬───────┘
-                  │
-                  ▼
-              Test Suite
-                  │
-           ┌──────┴──────┐
-           │             │
-         PASS           FAIL
-           │             │
-           ▼             ▼
-        Complete       Error Log
-                         │
-                         ▼
-                    AI Correction
-                         │
-                         └──────► Test
+             Business Requirements
+                      │
+                      ▼
+              OpenSpec Proposals
+                      │
+                      ▼
+             Living Specifications
+                      │
+                      ▼
+               AI-Assisted
+               Implementation
+                      │
+                      ▼
+          ┌───────────────────────┐
+          │   Clean Architecture │
+          │                       │
+          │   Domain              │
+          │   Application         │
+          │   Infrastructure      │
+          │   Presentation        │
+          └───────────┬───────────┘
+                      │
+                      ▼
+              Automated Tests
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+        PASS                     FAIL
+          │                       │
+          ▼                       ▼
+       Validate              Failure Analysis
+          │                       │
+          ▼                       ▼
+      Deliver              Refinement Cycle
+                                  │
+                                  └──────► Tests
 ```
 
-## AI-assisted development
+### Architecture & Engineering Principles
 
-An AI coding agent is given the specification and instructed to implement the application based exclusively on the defined behavior.
+The application is structured around **Domain-Driven Design (DDD)** and **Clean Architecture**, with independently organized bounded contexts:
 
-Potential tools include:
+- `budgeting` — Cost centers and budget targets.
+- `allocation` — Suppliers, contracts, measurements, and cost allocation.
+- `indicators` — Budget variance calculations and scenario simulations.
+- `intelligence` — Anomaly detection and AI-powered insights.
+- `shared` — Cross-cutting domain and infrastructure components.
 
-- Cursor
-- Aider
-- GitHub Copilot
-- Other coding agents
+Engineering principles and practices include:
 
-The agent is expected to respect:
+- SOLID and Dependency Inversion.
+- Framework-independent domain logic.
+- Repository and service abstractions using Python Protocols.
+- Explicit use cases and dependency injection.
+- Asynchronous persistence with SQLAlchemy.
+- Multi-provider AI adapters through abstraction ports.
+- Deterministic test doubles for external dependencies.
 
-- SOLID
-- Clean Architecture
-- Defined interfaces
-- API contracts
-- Acceptance criteria
-- Existing tests
+### AI-Assisted Software Engineering
 
-## Validation loop
+AI coding agents are integrated into a development workflow guided by formal specifications rather than unrestricted code generation.
 
-Generated code is validated through automated tests.
+The objective is to use AI as an engineering accelerator while preserving architectural consistency, explicit business rules, and implementation quality.
 
-When a test fails:
+The workflow emphasizes:
 
-1. Capture the failure.
-2. Provide the error/log to the agent.
-3. Let the agent analyze the failure.
-4. Apply the correction.
-5. Execute the test suite again.
-6. Repeat until the specified behavior is satisfied.
+- Specification-driven implementation.
+- Respect for architectural boundaries and defined interfaces.
+- Test-driven validation of generated code.
+- Incremental implementation through well-defined changes.
+- Continuous feedback between specifications, code, and tests.
 
-This project therefore explores the relationship between:
+### Testing & Continuous Validation
 
-**Specification → AI Agent → Implementation → Tests → Feedback → Refinement**
+Automated testing is a fundamental part of the development process.
+
+The project combines:
+
+- **Unit Tests:** Domain rules, calculations, entities, and use cases.
+- **Integration Tests:** Asynchronous persistence and repository implementations.
+- **API Tests:** HTTP contracts and endpoint behavior.
+- **BDD:** Executable Gherkin scenarios using `pytest-bdd`.
+- **Static Analysis:** Ruff and Pyrefly.
+- **Specification Validation:** OpenSpec validation.
+
+External AI dependencies can be replaced with deterministic test doubles, allowing business behavior to be validated without relying on external LLM services.
+
+### Technology Stack
+
+`Python` · `FastAPI` · `Pydantic` · `Pydantic AI` · `SQLAlchemy` · `PostgreSQL` · `Alembic` · `OpenAPI` · `OpenSpec` · `pytest` · `pytest-bdd` · `Docker` · `uv`
+
+### The Engineering Experiment
+
+The central idea is to explore how formal specifications, domain-driven design, automated testing, and AI-assisted development can work together to build reliable software.
+
+**Business Requirements → Specifications → AI-Assisted Engineering → Implementation → Automated Validation → Continuous Refinement**
+
+
+👉 **[View repository](https://github.com/higorrsc/strategic-indicators-ai)**
 
 ---
 
